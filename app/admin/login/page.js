@@ -1,5 +1,4 @@
 import TopBar from '../../components/TopBar';
-import { signIn } from './actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +29,8 @@ export default async function AdminLoginPage({ searchParams }) {
         </div>
 
         <form
-          action={signIn}
+          action="/api/admin/login"
+          method="POST"
           className="space-y-5 rounded-card border border-cloud-80/60 bg-white p-6"
           noValidate
         >

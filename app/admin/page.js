@@ -3,7 +3,6 @@ import { prisma } from '@/lib/prisma';
 import TopBar from '../components/TopBar';
 import SectionCard from '../components/SectionCard';
 import { resetCredential } from './actions';
-import { signOut } from './login/actions';
 import DataPanel from './components/DataPanel';
 
 export const dynamic = 'force-dynamic';
@@ -71,7 +70,7 @@ export default async function AdminPage({ searchParams }) {
               <span className="led led-live" aria-hidden />
               <span className="font-mono uppercase tracking-[0.16em]">Live</span>
             </span>
-            <form action={signOut}>
+            <form action="/api/admin/logout" method="POST">
               <button
                 type="submit"
                 className="font-mono text-[11px] uppercase tracking-[0.16em] text-cloud-40 hover:text-electric-50"
