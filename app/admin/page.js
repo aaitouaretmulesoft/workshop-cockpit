@@ -4,6 +4,7 @@ import TopBar from '../components/TopBar';
 import SectionCard from '../components/SectionCard';
 import { resetCredential } from './actions';
 import { signOut } from './login/actions';
+import DataPanel from './components/DataPanel';
 
 export const dynamic = 'force-dynamic';
 
@@ -110,6 +111,13 @@ export default async function AdminPage({ searchParams }) {
         ) : null}
 
         <div className="space-y-5">
+          <SectionCard
+            eyebrow="Données"
+            title="Reset & import CSV"
+          >
+            <DataPanel total={total} />
+          </SectionCard>
+
           <SectionCard eyebrow="Inventaire des comptes" title="Vue d’ensemble">
             <div className="grid gap-4 sm:grid-cols-3">
               <MetricTile
