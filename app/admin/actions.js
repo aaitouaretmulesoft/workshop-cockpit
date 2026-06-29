@@ -15,6 +15,7 @@ export async function resetCredential(formData) {
       assignedToFirstName: null,
       assignedToLastName: null,
       assignedAt: null,
+      claimedBy: null,
     },
   });
 
@@ -28,6 +29,7 @@ export async function resetAll() {
       assignedToFirstName: null,
       assignedToLastName: null,
       assignedAt: null,
+      claimedBy: null,
     },
   });
   revalidatePath('/admin');

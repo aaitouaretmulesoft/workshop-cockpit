@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { claimCredential } from '../actions';
-import CopyField from './CopyField';
+import ClaimedCard from './ClaimedCard';
 
 const initialState = { status: 'idle' };
 
@@ -37,7 +37,14 @@ export default function ClaimForm() {
   const [state, formAction] = useActionState(claimCredential, initialState);
 
   if (state.status === 'ok') {
-    return <CredentialCard state={state} />;
+    return (
+      <ClaimedCard
+        credential={state.credential}
+        firstName={state.firstName}
+        lastName={state.lastName}
+        reused={state.reused}
+      />
+    );
   }
 
   return (
@@ -68,7 +75,8 @@ export default function ClaimForm() {
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
         <p className="text-xs text-cloud-40">
-          Un seul compte par participant — réutilisable à tout moment.
+          Un compte par navigateur — vous récupérerez le vôtre même après un
+          refresh.
         </p>
         <SubmitButton />
       </div>
@@ -89,46 +97,5 @@ function Field({ name, label, ...rest }) {
         {...rest}
       />
     </label>
-  );
-}
-
-function CredentialCard({ state }) {
-  const { credential, firstName, lastName, reused } = state;
-  const fullName = `${firstName} ${lastName}`;
-
-  return (
-    <div className="rounded-card border border-cloud-80/60 bg-white">
-      <div className="flex items-center justify-between border-b border-cloud-80/60 px-5 py-3">
-        <div className="flex items-center gap-2">
-          <span className="led led-ok" aria-hidden />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cloud-40">
-            {reused ? 'Compte déjà attribué' : 'Compte attribué'}
-          </span>
-        </div>
-        <span className="font-mono text-[11px] text-cloud-40">
-          {credential.username}
-        </span>
-      </div>
-
-      <div className="space-y-5 p-5 sm:p-6">
-        <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cloud-40">
-            Participant
-          </div>
-          <div className="mt-1 font-display text-2xl text-electric-15">
-            {fullName}
-          </div>
-        </div>
-
-        <CopyField label="Username" value={credential.username} />
-        <CopyField label="Password" value={credential.password} />
-
-        <p className="text-xs text-cloud-40">
-          {reused
-            ? 'Vous avez déjà réservé ce compte — il vous est rendu tel quel.'
-            : 'Notez ou copiez vos identifiants. Gardez cet onglet ouvert pendant l’atelier.'}
-        </p>
-      </div>
-    </div>
   );
 }

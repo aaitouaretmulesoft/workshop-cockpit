@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import TopBar from '../components/TopBar';
 import SectionCard from '../components/SectionCard';
 import { resetCredential } from './actions';
+import { signOut } from './login/actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -64,10 +65,20 @@ export default async function AdminPage({ searchParams }) {
       <TopBar
         context="Workshop Cockpit · Admin"
         right={
-          <span className="inline-flex items-center gap-2">
-            <span className="led led-live" aria-hidden />
-            <span className="font-mono uppercase tracking-[0.16em]">Live</span>
-          </span>
+          <div className="flex items-center gap-4">
+            <span className="inline-flex items-center gap-2">
+              <span className="led led-live" aria-hidden />
+              <span className="font-mono uppercase tracking-[0.16em]">Live</span>
+            </span>
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="font-mono text-[11px] uppercase tracking-[0.16em] text-cloud-40 hover:text-electric-50"
+              >
+                Sortir
+              </button>
+            </form>
+          </div>
         }
       />
 

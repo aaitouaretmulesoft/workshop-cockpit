@@ -15,7 +15,9 @@ model Credential {
   assignedToFirstName  String?
   assignedToLastName   String?
   assignedAt           DateTime?
+  claimedBy            String?
 
   @@index([assignedToFirstName, assignedToLastName])
   @@index([assignedAt])
+  @@index([claimedBy])
 }
