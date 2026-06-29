@@ -2,8 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-
-export const ADMIN_COOKIE = 'wc_admin';
+import { ADMIN_COOKIE } from '@/lib/admin-auth';
 
 function safeNext(value) {
   const v = String(value ?? '/admin');

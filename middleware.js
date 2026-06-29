@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-
-const ADMIN_COOKIE = 'wc_admin';
+import { ADMIN_COOKIE } from '@/lib/admin-auth';
 
 export function middleware(req) {
   const { pathname, search } = req.nextUrl;
