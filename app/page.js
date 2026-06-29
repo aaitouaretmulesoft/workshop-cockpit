@@ -8,23 +8,15 @@ import { getMyCredential } from './actions';
 const DOCS = [
   {
     title: 'Guide de démarrage',
-    blurb: 'Activer votre Anypoint Platform et configurer Anypoint Studio.',
-    href: 'https://docs.mulesoft.com/general/',
+    blurb:
+      'Accédez à Anypoint Platform et suivez l’atelier MCP — 100 % navigateur, sans Anypoint Studio.',
+    href: 'https://hot-world-tour-paris.workshops.mulesoft.com/',
   },
   {
-    title: 'Atelier — étapes 1 → 5',
-    blurb: 'Suivez les exercices dans l’ordre. Comptez 20 min par étape.',
-    href: '#',
-  },
-  {
-    title: 'API exposée — référence',
-    blurb: 'Endpoints, payloads, codes d’erreur attendus pendant l’atelier.',
-    href: '#',
-  },
-  {
-    title: 'Dépannage & FAQ',
-    blurb: 'Les problèmes fréquents et comment s’en sortir vite.',
-    href: '#',
+    title: 'API exposée — console',
+    blurb:
+      'Testez l’API Système ERP depuis la console APIkit : endpoints, payloads et réponses.',
+    href: 'http://erp-system-app-de-c1.de-c1.cloudhub.io/console/',
   },
 ];
 
