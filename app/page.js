@@ -3,6 +3,7 @@ import TopBar from './components/TopBar';
 import SectionCard from './components/SectionCard';
 import ClaimForm from './components/ClaimForm';
 import ClaimedCard from './components/ClaimedCard';
+import CopyUrlInline from './components/CopyUrlInline';
 import { getMyCredential } from './actions';
 
 const DOCS = [
@@ -15,8 +16,7 @@ const DOCS = [
     title: 'API exposée — console',
     blurb:
       'Testez l’API Système ERP depuis la console APIkit : endpoints, payloads et réponses.',
-    href: 'http://erp-system-app-de-c1.de-c1.cloudhub.io/console/',
-    forceHttp: true,
+    copyUrl: 'http://erp-system-app-de-c1.de-c1.cloudhub.io/console',
   },
 ];
 
@@ -74,58 +74,55 @@ export default async function Home() {
           >
             <ul className="space-y-2.5">
               {DOCS.map((doc) => {
-                const external = doc.href.startsWith('http');
-                const className =
-                  'group flex items-start justify-between gap-3 rounded-md border border-cloud-80/60 bg-white px-4 py-3 transition hover:border-electric-50/40 hover:shadow-sm';
-                const content = (
-                  <>
-                    <div>
-                      <div className="font-display text-[15px] font-medium text-electric-15">
-                        {doc.title}
+                if (doc.copyUrl) {
+                  return (
+                    <li key={doc.title}>
+                      <div className="rounded-md border border-cloud-80/60 bg-white px-4 py-3">
+                        <div className="font-display text-[15px] font-medium text-electric-15">
+                          {doc.title}
+                        </div>
+                        <div className="mt-0.5 text-xs text-cloud-40">
+                          {doc.blurb}
+                        </div>
+                        <CopyUrlInline url={doc.copyUrl} />
                       </div>
-                      <div className="mt-0.5 text-xs text-cloud-40">
-                        {doc.blurb}
-                      </div>
-                    </div>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mt-1 shrink-0 text-cloud-68 transition group-hover:translate-x-0.5 group-hover:text-electric-50"
-                      aria-hidden
-                    >
-                      <path d="M7 17 17 7" />
-                      <path d="M8 7h9v9" />
-                    </svg>
-                  </>
-                );
+                    </li>
+                  );
+                }
 
+                const external = doc.href.startsWith('http');
                 return (
                   <li key={doc.title}>
-                    {doc.forceHttp ? (
-                      <a
-                        href={doc.href}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className={className}
+                    <Link
+                      href={doc.href}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noreferrer noopener' : undefined}
+                      className="group flex items-start justify-between gap-3 rounded-md border border-cloud-80/60 bg-white px-4 py-3 transition hover:border-electric-50/40 hover:shadow-sm"
+                    >
+                      <div>
+                        <div className="font-display text-[15px] font-medium text-electric-15">
+                          {doc.title}
+                        </div>
+                        <div className="mt-0.5 text-xs text-cloud-40">
+                          {doc.blurb}
+                        </div>
+                      </div>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-1 shrink-0 text-cloud-68 transition group-hover:translate-x-0.5 group-hover:text-electric-50"
+                        aria-hidden
                       >
-                        {content}
-                      </a>
-                    ) : (
-                      <Link
-                        href={doc.href}
-                        target={external ? '_blank' : undefined}
-                        rel={external ? 'noreferrer noopener' : undefined}
-                        className={className}
-                      >
-                        {content}
-                      </Link>
-                    )}
+                        <path d="M7 17 17 7" />
+                        <path d="M8 7h9v9" />
+                      </svg>
+                    </Link>
                   </li>
                 );
               })}
