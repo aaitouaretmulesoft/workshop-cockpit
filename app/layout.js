@@ -1,4 +1,19 @@
+import { Inter, Jost } from 'next/font/google';
 import './globals.css';
+
+// Salesforce Sans and Avant Garde for Salesforce are proprietary.
+// Inter is the closest open substitute for Salesforce Sans (humanist sans, similar metrics).
+// Jost is a geometric sans modelled on Futura — the same family Avant Garde belongs to.
+const body = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+const display = Jost({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Workshop Cockpit — MuleSoft Hands-on',
@@ -8,8 +23,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
-      <body className="min-h-screen font-body antialiased">{children}</body>
+    <html lang="fr" className={`${body.variable} ${display.variable}`}>
+      <body className="min-h-screen bg-white font-body text-electric-15 antialiased">
+        {children}
+      </body>
     </html>
   );
 }
