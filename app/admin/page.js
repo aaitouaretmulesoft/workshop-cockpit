@@ -23,28 +23,39 @@ export default async function AdminPage({ searchParams }) {
   const params = await searchParams;
   const q = (params?.q ?? '').trim();
 
-  const where = q
-    ? {
-        OR: [
-          { assignedToFirstName: { contains: q, mode: 'insensitive' } },
-          { assignedToLastName: { contains: q, mode: 'insensitive' } },
-          { username: { contains: q, mode: 'insensitive' } },
-        ],
-      }
-    : undefined;
+  let total = 0;
+  let assigned = 0;
+  let rows = [];
+  let dbError = null;
 
-  const [total, assigned, rows] = await Promise.all([
-    prisma.credential.count(),
-    prisma.credential.count({ where: { NOT: { assignedToFirstName: null } } }),
-    prisma.credential.findMany({
-      where,
-      orderBy: [
-        { assignedAt: { sort: 'desc', nulls: 'last' } },
-        { id: 'asc' },
-      ],
-      take: 500,
-    }),
-  ]);
+  try {
+    const where = q
+      ? {
+          OR: [
+            { assignedToFirstName: { contains: q, mode: 'insensitive' } },
+            { assignedToLastName: { contains: q, mode: 'insensitive' } },
+            { username: { contains: q, mode: 'insensitive' } },
+          ],
+        }
+      : undefined;
+
+    [total, assigned, rows] = await Promise.all([
+      prisma.credential.count(),
+      prisma.credential.count({ where: { NOT: { assignedToFirstName: null } } }),
+      prisma.credential.findMany({
+        where,
+        orderBy: [
+          { assignedAt: { sort: 'desc', nulls: 'last' } },
+          { id: 'asc' },
+        ],
+        take: 500,
+      }),
+    ]);
+  } catch (err) {
+    console.error('[admin] database error:', err);
+    dbError =
+      'Impossible de joindre la base de données. Vérifiez que DATABASE_URL est configurée sur Vercel (Neon connecté) puis redéployez.';
+  }
 
   const remaining = total - assigned;
 
@@ -77,6 +88,15 @@ export default async function AdminPage({ searchParams }) {
             ← Vue participant
           </Link>
         </div>
+
+        {dbError ? (
+          <div
+            role="alert"
+            className="mb-6 rounded-md border border-accent-pink/40 bg-accent-pink/5 px-4 py-3 text-sm text-electric-15"
+          >
+            {dbError}
+          </div>
+        ) : null}
 
         <div className="space-y-5">
           <SectionCard eyebrow="Inventaire des comptes" title="Vue d’ensemble">
