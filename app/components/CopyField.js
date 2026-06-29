@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function CopyField({ label, value, mono = false }) {
+export default function CopyField({ label, value }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -17,22 +17,18 @@ export default function CopyField({ label, value, mono = false }) {
 
   return (
     <div>
-      <div className="text-[10px] uppercase tracking-[0.18em] text-cloud-40">
+      <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cloud-40">
         {label}
       </div>
-      <div className="mt-1 flex items-center gap-2">
-        <div
-          className={`flex-1 truncate rounded border border-cloud-80 bg-cloud-95/60 px-3 py-2 text-electric-15 ${
-            mono ? 'font-mono text-[15px]' : 'font-mono text-[15px]'
-          }`}
-        >
+      <div className="mt-1.5 flex items-center gap-2">
+        <div className="flex-1 truncate rounded-md border border-cloud-80 bg-cloud-95/40 px-3 py-2 font-mono text-[14px] text-electric-15">
           {value}
         </div>
         <button
           type="button"
           onClick={copy}
           aria-label={`Copier ${label}`}
-          className="rounded-pill border border-electric-50 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-electric-50 transition hover:bg-electric-50 hover:text-white"
+          className="rounded-pill border border-cloud-80 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-electric-50 transition hover:border-electric-50 hover:bg-electric-50 hover:text-white"
         >
           {copied ? 'Copié' : 'Copier'}
         </button>

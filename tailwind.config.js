@@ -25,9 +25,27 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['"Century Gothic"', '"Avant Garde"', 'Futura', 'sans-serif'],
-        body: ['Arial', 'Helvetica', 'sans-serif'],
-        mono: ['"JetBrains Mono"', '"SF Mono"', 'ui-monospace', 'monospace'],
+        display: [
+          'var(--font-display)',
+          '"Avant Garde"',
+          '"Century Gothic"',
+          'Futura',
+          'sans-serif',
+        ],
+        body: [
+          'var(--font-body)',
+          '"Salesforce Sans"',
+          'Arial',
+          'Helvetica',
+          'sans-serif',
+        ],
+        mono: [
+          'ui-monospace',
+          '"SF Mono"',
+          '"JetBrains Mono"',
+          'Menlo',
+          'monospace',
+        ],
       },
       borderRadius: {
         card: '8px',

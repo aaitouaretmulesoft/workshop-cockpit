@@ -6,15 +6,16 @@
   --sf-electric-15: #0c1a3f;
   --sf-electric-30: #0b2d9b;
   --sf-electric-50: #1b5ce6;
-  --sf-cloud-95: #eaf5fe;
+  --sf-cloud-40: #05628a;
+  --sf-cloud-68: #47aadc;
   --sf-cloud-80: #90d0fe;
+  --sf-cloud-95: #eaf5fe;
 }
 
 html,
 body {
-  background: var(--sf-cloud-95);
+  background: #ffffff;
   color: var(--sf-electric-15);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -24,42 +25,43 @@ body {
   color: #fff;
 }
 
-/* Boarding-pass perforation: a row of small dots on the dividing edge */
-.perforation {
-  background-image: radial-gradient(circle, #cfe5fb 1.5px, transparent 1.6px);
-  background-size: 12px 12px;
-  background-repeat: repeat-x;
-  background-position: 0 50%;
+/* Soft diagonal pattern, only on the participant hero — very subtle */
+.hero-diagonals {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35) 0px,
+    rgba(255, 255, 255, 0.35) 1px,
+    transparent 1px,
+    transparent 14px
+  );
 }
 
-/* Faint instrument-panel grid for the admin background */
-.instrument-grid {
-  background-image: linear-gradient(rgba(11, 45, 155, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 45, 155, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-/* Status LED — pulses when the system is "live" */
+/* Status LED — small circular indicator with a soft halo */
 .led {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  box-shadow: 0 0 0 3px rgba(27, 92, 230, 0.18);
+  flex: 0 0 8px;
 }
 .led-live {
-  background: #1b5ce6;
+  background: var(--sf-electric-50);
+  box-shadow: 0 0 0 3px rgba(27, 92, 230, 0.16);
 }
 .led-ok {
   background: #00a3a3;
+  box-shadow: 0 0 0 3px rgba(0, 163, 163, 0.16);
 }
 .led-warn {
   background: #f5c518;
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.18);
 }
 
 input:focus-visible,
-button:focus-visible {
+button:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--sf-electric-50);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
