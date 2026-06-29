@@ -213,6 +213,7 @@ export default async function AdminPage({ searchParams }) {
                     <tr>
                       <th className="px-4 py-3">#</th>
                       <th className="px-4 py-3">Identifiant</th>
+                      <th className="px-4 py-3">Mot de passe</th>
                       <th className="px-4 py-3">Statut</th>
                       <th className="px-4 py-3">Attribué à</th>
                       <th className="px-4 py-3">Horodatage</th>
@@ -223,7 +224,7 @@ export default async function AdminPage({ searchParams }) {
                     {rows.length === 0 ? (
                       <tr>
                         <td
-                          colSpan={6}
+                          colSpan={7}
                           className="px-4 py-10 text-center text-sm text-cloud-40"
                         >
                           Aucun résultat.
@@ -239,6 +240,9 @@ export default async function AdminPage({ searchParams }) {
                           </td>
                           <td className="px-4 py-3 font-mono text-[13px] text-electric-15">
                             {r.username}
+                          </td>
+                          <td className="px-4 py-3 font-mono text-[13px] text-electric-15">
+                            {r.password}
                           </td>
                           <td className="px-4 py-3">
                             <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-cloud-40">
