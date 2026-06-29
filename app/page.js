@@ -8,8 +8,7 @@ import { getMyCredential } from './actions';
 const DOCS = [
   {
     title: 'Guide de démarrage',
-    blurb:
-      'Accédez à Anypoint Platform et suivez l’atelier MCP — 100 % navigateur, sans Anypoint Studio.',
+    blurb: 'Accédez à Anypoint Platform et suivez l’atelier MCP.',
     href: 'https://hot-world-tour-paris.workshops.mulesoft.com/',
   },
   {
@@ -17,6 +16,7 @@ const DOCS = [
     blurb:
       'Testez l’API Système ERP depuis la console APIkit : endpoints, payloads et réponses.',
     href: 'http://erp-system-app-de-c1.de-c1.cloudhub.io/console/',
+    forceHttp: true,
   },
 ];
 
@@ -53,12 +53,6 @@ export default async function Home() {
           <SectionCard
             eyebrow="Étape 01 · Accès"
             title={mine ? 'Vos identifiants' : 'Récupérer vos identifiants'}
-            action={
-              <span className="inline-flex items-center gap-2 rounded-pill border border-cloud-80 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-cloud-40">
-                <span className="led led-live" aria-hidden />
-                Live
-              </span>
-            }
           >
             {mine ? (
               <ClaimedCard
@@ -81,38 +75,57 @@ export default async function Home() {
             <ul className="space-y-2.5">
               {DOCS.map((doc) => {
                 const external = doc.href.startsWith('http');
+                const className =
+                  'group flex items-start justify-between gap-3 rounded-md border border-cloud-80/60 bg-white px-4 py-3 transition hover:border-electric-50/40 hover:shadow-sm';
+                const content = (
+                  <>
+                    <div>
+                      <div className="font-display text-[15px] font-medium text-electric-15">
+                        {doc.title}
+                      </div>
+                      <div className="mt-0.5 text-xs text-cloud-40">
+                        {doc.blurb}
+                      </div>
+                    </div>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mt-1 shrink-0 text-cloud-68 transition group-hover:translate-x-0.5 group-hover:text-electric-50"
+                      aria-hidden
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M8 7h9v9" />
+                    </svg>
+                  </>
+                );
+
                 return (
                   <li key={doc.title}>
-                    <Link
-                      href={doc.href}
-                      target={external ? '_blank' : undefined}
-                      rel={external ? 'noreferrer noopener' : undefined}
-                      className="group flex items-start justify-between gap-3 rounded-md border border-cloud-80/60 bg-white px-4 py-3 transition hover:border-electric-50/40 hover:shadow-sm"
-                    >
-                      <div>
-                        <div className="font-display text-[15px] font-medium text-electric-15">
-                          {doc.title}
-                        </div>
-                        <div className="mt-0.5 text-xs text-cloud-40">
-                          {doc.blurb}
-                        </div>
-                      </div>
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mt-1 shrink-0 text-cloud-68 transition group-hover:translate-x-0.5 group-hover:text-electric-50"
-                        aria-hidden
+                    {doc.forceHttp ? (
+                      <a
+                        href={doc.href}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className={className}
                       >
-                        <path d="M7 17 17 7" />
-                        <path d="M8 7h9v9" />
-                      </svg>
-                    </Link>
+                        {content}
+                      </a>
+                    ) : (
+                      <Link
+                        href={doc.href}
+                        target={external ? '_blank' : undefined}
+                        rel={external ? 'noreferrer noopener' : undefined}
+                        className={className}
+                      >
+                        {content}
+                      </Link>
+                    )}
                   </li>
                 );
               })}

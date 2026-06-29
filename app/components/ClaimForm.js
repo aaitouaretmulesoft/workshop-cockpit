@@ -73,11 +73,7 @@ export default function ClaimForm() {
         </div>
       ) : null}
 
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-        <p className="text-xs text-cloud-40">
-          Un compte par navigateur — vous récupérerez le vôtre même après un
-          refresh.
-        </p>
+      <div className="flex justify-end pt-1">
         <SubmitButton />
       </div>
     </form>
